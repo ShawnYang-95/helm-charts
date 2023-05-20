@@ -28,4 +28,4 @@ jobs:
           git config --global user.name "ShawnYang-95"
           git add values.yaml
           git commit -m "Update image version to latest"
-          git push
+          git push https://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@github.com/ShawnYang-95/helm-charts.git master
