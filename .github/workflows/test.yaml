@@ -22,7 +22,7 @@ jobs:
 
       - name: Update image version in value.yaml
         run: |
-          cd todo/helm-charts/
+          cd todo
           sed -i '/frontend:/,/service:/s/\(tag:\s*\).*/\1latestes/' values.yaml
           git config --global user.email "1758010923@qq.com"
           git config --global user.name "ShawnYang-95"
