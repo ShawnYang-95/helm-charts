@@ -1,0 +1,42 @@
+# Default values for todo.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# frontend
+frontend:
+  name: todo
+  labels: 
+    app: todo
+  replicaCount: 2
+  image:
+    repository: shw0n0/getting-test
+    pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+  service:
+    type: NodePort
+    port: 3000
+    targetPort: 3000
+    nodePort: 30311
+
+# backend
+backend:
+  name: mysql
+  labels: 
+    app: mysql
+  replicaCount: 1
+  image:
+    repository: mysql
+    pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+    tag: "8.0"
+  service:
+    type: ClusterIP
+    port: 3306
+    targetPort: 3306
+
+# secrets
+secret:
+  name: todo-secret
+
+

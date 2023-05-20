@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.frontend.labels.app }}
+  name: {{ .Values.frontend.name }} 
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.frontend.labels.app}}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.frontend.labels.app }}
+    spec:
+      containers:
+        # Parses into something like: junktext/getting-started:1.0.4
+      - image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag}}
+        # We only have 1 container in each Pod, so we can just a simple name.
+        name: {{ .Chart.Name }}
+        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+        ports:
+          - containerPort: {{ .Values.frontend.service.targetPort }}
+        env:
+        - name: MYSQL_HOST 
+          value: {{ .Values.backend.name}}
+        - name: MYSQL_USER
+          valueFrom: 
+            secretKeyRef: 
+              name: {{ .Values.secret.name}}
+              key: username
+        - name: MYSQL_PASSWORD
+          valueFrom: 
+            secretKeyRef: 
+              name: {{ .Values.secret.name}}
+              key: password
+        - name: MYSQL_DB
+          valueFrom:
+            secretKeyRef: 
+              name: {{ .Values.secret.name}}
+              key: mysql_db
+
+
+
+
+
+    
