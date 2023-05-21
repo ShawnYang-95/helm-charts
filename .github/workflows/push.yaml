@@ -1,0 +1,30 @@
+name: Publish Docker image  
+on:   
+  push:
+    branches:  
+      - 'master'
+    tags:       
+      - '*'
+jobs: 
+  push_to_registry2:  
+    name: pull helm chart
+    runs-on: ubuntu-latest
+    
+    steps: 
+      - name: Checkout Helm repository      
+        uses: actions/checkout@v2
+        with:
+          repository: ShawnYang-95/helm-charts
+          ref: master
+          path: .
+          
+      - name: Update image version in value.yaml
+        run: |
+          cd .
+          sed -i '/frontend:/,/service:/s/\(tag:\s*\).*/\1latestes/' values.yaml
+      
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: test1
+          commit_user_name: ShawnYang-95
+          commit_user_email: 1758010923@qq.com
