@@ -1,10 +1,5 @@
 name: Publish Docker image  
 on:   
-#   push:
-#     branches:  
-#       - 'master'
-#     tags:       
-#       - '*'
   repository_dispatch:
     types: [special_repository]
 jobs: 
@@ -23,7 +18,7 @@ jobs:
       - name: Update image version in value.yaml
         run: |
           cd .
-          sed -i '/frontend:/,/service:/s/\(tag:\s*\).*/\1latestes/' values.yaml
+          sed -i '/frontend:/,/service:/s/\(tag:\s*\).*/\1latestest/' values.yaml
       
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
