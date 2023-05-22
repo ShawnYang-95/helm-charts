@@ -12,7 +12,7 @@ frontend:
     repository: shw0n0/getting-test
     pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-    tag: latestes
+    tag: latestest
   service:
     type: NodePort
     port: 3000
